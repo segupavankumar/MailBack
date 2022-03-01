@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+{%block nav-list%}
+<li><a href = '{% url "history" %}'><button class="hist-btn">HISTORY</button></a></li>
+<li><a href = '{% url "sendmail" %}'><button class="new-btn" >NEW MAIL</button></a></li>
+{%endblock%}
+{% block content %}
+    <div class="mail-list ">
+{% endblock %}
+{%block new-mail%}
+<h1>Mail</h1>
+<ul>
+    <li>From:</li>
+    <li>{{data1.FromMail}}</li>
+</ul>
+<ul>
+    <li>To:</li>
+    <li>{{data1.ToMail}}</li>
+</ul>
+<ul>
+    <li>{{data1.Subject}}</li>
+    <li>{{data1.Date}}</li>
+</ul>
+<p name="message" id="message" cols="134" >{{data1.Message}}</p>
+{%endblock%}

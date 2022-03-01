@@ -1,0 +1,100 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAIL </title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+
+</head>
+<body class="body">
+    <div class="wrapper">
+        <div class="nav">
+            <ul class="nav-list">
+                {%block nav-list%}
+                {% comment %} <li ><a href = '{% url "sendmail" %}'><button class="home-btn" style = 'background: rgb(0, 188, 245)'>HOME</button></a></li> {% endcomment %}
+                <li><a href = '{% url "history" %}'><button class="hist-btn">HISTORY</button></a></li>
+                <li><a href = '{% url "sendmail" %}'><button class="new-btn" >NEW MAIL</button></a></li>
+                {%endblock%}
+            </ul>
+        </div>
+        {% block content %}
+        <div class="mail-list hide">
+        {% endblock %}
+            <div class="searh">
+                <ul class="search-list">
+                    <li><input type="text" name="search" placeholder="search is not working"></li>
+                    <li><button><img src="https://img.icons8.com/material-outlined/24/000000/search--v1.png"/></button></li>
+                </ul>
+            </div>
+            <div class="mail-filter">
+                <ul>
+                    <li>
+                        <h2 id = 'Name'>{%block Name%}HISTORY{% endblock %}</h2>
+                    </li>
+                    <li>
+                        <select name="filter" id="filter">
+                            <option value="All">All</option>
+                            <option value="New">Date added</option>
+                            <option value="unread">Unread</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+            <div class="mail-content" >
+                {%block mail-content%}
+                {%for mail in data%}
+                <a href = '{%url "index" mail.id %}'><button>
+                    <ul>
+                        <li>
+                            <h4 style="color: rgb(28, 230, 230);">{{mail.ToMail}}</h4>
+                        </li>
+                        <li>
+                            <h4>{{mail.Subject}}</h4>
+                        </li>
+                        <li>
+                            <h4 style="color: rgb(221, 44, 44);">{{mail.Message}}</h4>
+                        </li>
+                        <li>
+                            <h4 style="color: rgb(221, 44, 44);">{{mail.Date}}</h4>
+                        </li>
+                    </ul>
+                </button></a>
+                {%endfor%}
+                {%endblock%}
+            </div>
+        </div>
+        {%block new%}
+        <div class="new-mail">
+        {%endblock%}
+            {%block new-mail%}
+            <h1>New Mail</h1>
+            <form  method="post">{% csrf_token %}
+                <ul>
+                    <li>From:</li>
+                    <li><input type="email" name="from" id="from"></li>
+                </ul>
+                <ul>
+                    <li>To:</li>
+                    <li><input  name="to" placeholder="Use Space To Send for Multiple Mails" id="to"></li>
+                </ul>
+                <ul>
+                    <li><input type="text" name="sub" id="sub" placeholder="Subject"></li>
+                </ul>
+                <textarea name="message" id="message" cols="134" rows="20" placeholder="You can type your message hear"></textarea>
+                <div class="btn">
+                    <button type="submit" class="btn btn-success">SEND</button>
+                    
+                </div>
+
+            </form>
+            {%endblock%}
+        </div>
+    </div>
+    <script src='{% static "main.js"%}' ></script>
+</body>
+</html>

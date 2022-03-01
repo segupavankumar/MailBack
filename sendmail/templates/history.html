@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+{%block Name%}HISTORY{%endblock%}
+
+{%block nav-list%}
+{% comment %} <li ><a href = '{% url "sendmail" %}'><button class="home-btn" >HOME</button></a></li> {% endcomment %}
+<li><a href = '{% url "history" %}'><button class="hist-btn" style = 'background: rgb(0, 188, 245)'>HISTORY</button></a></li>
+<li><a href = '{% url "sendmail" %}'><button class="new-btn" >NEW MAIL</button></a></li>
+{%endblock%}
+{% block content %}
+    <div class="mail-list ">
+{% endblock %}
+{%block mail-content%}
+{%for mail in data%}
+<a href = '{%url "index" mail.id %}'><button>
+    <ul>
+        <li>
+            <h4 style="color: rgb(28, 230, 230);">{{mail.ToMail}}</h4>
+        </li>
+        <li>
+            <h4>{{mail.Subject}}</h4>
+        </li>
+        <li>
+            <h4 style="color: rgb(221, 44, 44);">{{mail.Message}}</h4>
+        </li>
+        <li>
+            <h4 style="color: rgb(221, 44, 44);">{{mail.Date}}</h4>
+        </li>
+    </ul>
+    </button></a>
+{%endfor%}
+{%endblock%}
+{%block new%}
+    <div class="new-mail hide">
+{%endblock%}
+
+
+        
+
